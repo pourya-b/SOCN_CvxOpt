@@ -1,0 +1,61 @@
+
+For each of the following functions, find an expression for $\prox_{\lambda f}(\bm x)$ for any $\lambda > 0$ and $\bm x$.
+\begin{enumerate}
+    \item $f(x)=2x_{[1]}+x_{[2]}$. $\prox_f((2,1,4,1,2,1))=?$ \\\\
+    \textbf{Solution:}
+        \begin{itemize}
+        \item $f(x)=\sigma_{C}$ where $C := \{w \in \mathbb{R}^n \mid \sum{w_i} = 3, 0 \leq w_i \leq 2, \; \forall i \in [n]\}$
+        \item $\prox_{\lambda f}(x) = x - \lambda P_C(\frac{x}{\lambda})$
+        \item $P_C(x)=H_{a,b} \cap \boxx[\ell,u]$ where $\bm a=\bm e, b = 3, \bm\ell = \bm 0, \bm u = \bm 2$
+        \item the code is \emph{ex1-1.py}
+        \end{itemize}
+    
+    \item $f(x)=
+    \begin{cases}
+        \frac{1}{t}, & t > 0\\
+        \infty, & \text{else}
+    \end{cases}$\\\\
+    \textbf{Solution:}
+    \begin{itemize}
+        \item $\prox_{\lambda f}(x) = \argmin_{t>0} \{\frac{\lambda}{t} + \frac{1}{2} \|t-x\|^2\}$
+        \item then: $\prox_{\lambda f}(x)=t_\star : t_\star^3 - x t_\star^2 - \lambda = 0$
+    \end{itemize}
+
+    \item $F(\bm X)=\begin{cases}
+        \tr(\bm X^{-1}), & \bm X \succ 0\\
+        \infty, & \text{else}
+    \end{cases}$\\\\
+    \textbf{Solution:}
+    \begin{itemize}
+        \item $F = f \circ \lambda : f(\bm \lambda)=\sum_{i=1}^n{\frac{1}{\lambda_i}}$
+        \item 
+        \begin{align*}
+            \prox_{\alpha F}(\bm X) &= \bm U \diag(\prox_{\alpha f}(\bm \lambda(\bm X))) \bm U^T \\
+            & = \bm U \diag \left(\prox_{\alpha f_1}(\bm \lambda_1(\bm X)) \times \dots \times \prox_{\alpha f_n}(\bm \lambda_n(\bm X))\right) \bm U^T
+        \end{align*}
+        \item $f_i(x)=\frac{1}{x}: x > 0$. Hence: $\prox_{\alpha f_i}(x)=t_\star$ from the previous exercise
+        \item $\prox_{F}(\bm X)$ with $\alpha=1$ and 
+        $\bm X=\begin{pmatrix}
+            3 & 1\\
+            1 & 4
+        \end{pmatrix}$ is calculated using the code
+        \item the code is \emph{ex1-2.py}
+    \end{itemize}
+
+    \item $f(\bm x) = (\|\bm x\|_2 - 1)^2$\\\\
+    \textbf{Solution:}
+    \begin{itemize}
+        \item $f(\bm x)=\|\bm x\|_2^2 - 2\|\bm x\|_2 + 1$
+        \item $\prox_{\lambda g=-2\lambda\|\cdot\|_2}(\bm x)=
+        \begin{cases}
+            \left(1+\frac{2\lambda}{\|\bm x\|}\right) \bm x, & \bm x \neq \bm 0,\\
+            \{\bm u: \|\bm u\| = 2\lambda\}, & \bm x = \bm 0.
+        \end{cases}$
+        \item $\prox_{\lambda f} = \prox_{\lambda g+\lambda\|\cdot\|^2}(\bm x) = \prox_{\frac{1}{2\lambda+1}g}(\frac{\bm x}{2\lambda+1})=\begin{cases}
+            \left(1+\frac{2\lambda}{(2\lambda+1)\|\bm x\|}\right) \frac{\bm x}{2\lambda+1}, & \bm x \neq \bm 0,\\
+            \{\bm u: \|\bm u\| = \frac{2\lambda}{2\lambda+1}\}, & \bm x = \bm 0.
+        \end{cases}$
+    \end{itemize} 
+    
+    
+\end{enumerate}
